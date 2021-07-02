@@ -31,7 +31,7 @@ public class Genre implements Parcelable {
         long result = id;
         result = 31 * result + name.hashCode();
         result = 31 * result + songCount;
-        return (int)result;
+        return (int) result;
     }
 
     @Override

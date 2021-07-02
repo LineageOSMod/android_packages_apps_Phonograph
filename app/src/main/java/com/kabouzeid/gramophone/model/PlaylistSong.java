@@ -30,8 +30,8 @@ public class PlaylistSong extends Song {
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (int)playlistId;
-        result = 31 * result + (int)idInPlayList;
+        result = 31 * result + (int) playlistId;
+        result = 31 * result + (int) idInPlayList;
         return result;
     }
 

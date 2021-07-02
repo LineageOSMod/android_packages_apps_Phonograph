@@ -34,7 +34,7 @@ public class Playlist implements Parcelable {
 
     @Override
     public int hashCode() {
-        int result = (int)id;
+        int result = (int) id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }

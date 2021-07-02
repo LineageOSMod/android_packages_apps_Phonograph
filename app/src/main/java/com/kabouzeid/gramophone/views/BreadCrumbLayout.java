@@ -22,7 +22,6 @@ import com.kabouzeid.gramophone.R;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -67,6 +66,7 @@ public class BreadCrumbLayout extends HorizontalScrollView implements View.OnCli
                     ((Crumb) o).getFile().equals(getFile());
         }
 
+        @NonNull
         @Override
         public String toString() {
             return "Crumb{" +
@@ -160,18 +160,6 @@ public class BreadCrumbLayout extends HorizontalScrollView implements View.OnCli
         if (mHistory.size() == 0) return false;
         mHistory.remove(mHistory.size() - 1);
         return mHistory.size() != 0;
-    }
-
-    public int historySize() {
-        return mHistory.size();
-    }
-
-    public void clearHistory() {
-        mHistory.clear();
-    }
-
-    public void reverseHistory() {
-        Collections.reverse(mHistory);
     }
 
     public void addCrumb(@NonNull Crumb crumb, boolean refreshLayout) {
@@ -276,11 +264,6 @@ public class BreadCrumbLayout extends HorizontalScrollView implements View.OnCli
 
     public boolean trim(File file) {
         return trim(file.getPath(), file.isDirectory());
-    }
-
-    void updateIndices() {
-        for (int i = 0; i < mChildFrame.getChildCount(); i++)
-            mChildFrame.getChildAt(i).setTag(i);
     }
 
     public void setActiveOrAdd(@NonNull Crumb crumb, boolean forceRecreate) {
