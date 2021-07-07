@@ -15,10 +15,11 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.SongLoader;
@@ -104,7 +105,7 @@ public class MusicPlayerRemote {
     }
 
     public static final class ServiceToken {
-        public ContextWrapper mWrappedContext;
+        public final ContextWrapper mWrappedContext;
 
         public ServiceToken(final ContextWrapper context) {
             mWrappedContext = context;
@@ -176,9 +177,9 @@ public class MusicPlayerRemote {
      * Async
      */
     public static void openQueue(final List<Song> queue, final int startPosition, final boolean startPlaying) {
-        if (!tryToHandleOpenPlayingQueue(queue, startPosition, startPlaying) && musicService != null) {
+        if (tryToHandleOpenPlayingQueue(queue, startPosition, startPlaying) && musicService != null) {
             musicService.openQueue(queue, startPosition, startPlaying);
-            if (!PreferenceUtil.getInstance(musicService).rememberShuffle()){
+            if (!PreferenceUtil.getInstance(musicService).rememberShuffle()) {
                 setShuffleMode(MusicService.SHUFFLE_MODE_NONE);
             }
         }
@@ -193,7 +194,7 @@ public class MusicPlayerRemote {
             startPosition = new Random().nextInt(queue.size());
         }
 
-        if (!tryToHandleOpenPlayingQueue(queue, startPosition, startPlaying) && musicService != null) {
+        if (tryToHandleOpenPlayingQueue(queue, startPosition, startPlaying) && musicService != null) {
             openQueue(queue, startPosition, startPlaying);
             setShuffleMode(MusicService.SHUFFLE_MODE_SHUFFLE);
         }
@@ -206,9 +207,9 @@ public class MusicPlayerRemote {
             } else {
                 setPosition(startPosition);
             }
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     public static Song getCurrentSong() {
@@ -438,14 +439,12 @@ public class MusicPlayerRemote {
             }
             if (songs != null && !songs.isEmpty()) {
                 openQueue(songs, 0, true);
-            } else {
-                //TODO the file is not listed in the media store
-            }
+            }  //TODO the file is not listed in the media store
         }
     }
+
     @Nullable
-    private static String getFilePathFromUri(Context context, Uri uri)
-    {
+    private static String getFilePathFromUri(Context context, Uri uri) {
         Cursor cursor = null;
         final String column = "_data";
         final String[] projection = {

@@ -2,8 +2,6 @@ package com.kabouzeid.gramophone.ui.fragments.player;
 
 import android.animation.Animator;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.viewpager.widget.ViewPager;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,6 +12,9 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.ViewPager;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.AlbumCoverPagerAdapter;
@@ -69,7 +70,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
         super.onViewCreated(view, savedInstanceState);
         viewPager.addOnPageChangeListener(this);
         viewPager.setOnTouchListener(new View.OnTouchListener() {
-            GestureDetector gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {
+            final GestureDetector gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {
                 @Override
                 public boolean onSingleTapConfirmed(MotionEvent e) {
                     if (callbacks != null) {
@@ -131,7 +132,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
         }
     }
 
-    private AlbumCoverPagerAdapter.AlbumCoverFragment.ColorReceiver colorReceiver = new AlbumCoverPagerAdapter.AlbumCoverFragment.ColorReceiver() {
+    private final AlbumCoverPagerAdapter.AlbumCoverFragment.ColorReceiver colorReceiver = new AlbumCoverPagerAdapter.AlbumCoverFragment.ColorReceiver() {
         @Override
         public void onColorReady(int color, int requestCode) {
             if (currentPosition == requestCode) {
@@ -177,16 +178,16 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     }
 
     private boolean isLyricsLayoutVisible() {
-        return lyrics != null && lyrics.isSynchronized() && lyrics.isValid() && PreferenceUtil.getInstance(getActivity()).synchronizedLyricsShow();
+        return lyrics == null || !lyrics.isSynchronized() || !lyrics.isValid() || !PreferenceUtil.getInstance(getActivity()).synchronizedLyricsShow();
     }
 
     private boolean isLyricsLayoutBound() {
-        return lyricsLayout != null && lyricsLine1 != null && lyricsLine2 != null;
+        return lyricsLayout == null || lyricsLine1 == null || lyricsLine2 == null;
     }
 
     private void hideLyricsLayout() {
         lyricsLayout.animate().alpha(0f).setDuration(PlayerAlbumCoverFragment.VISIBILITY_ANIM_DURATION).withEndAction(() -> {
-            if (!isLyricsLayoutBound()) return;
+            if (isLyricsLayoutBound()) return;
             lyricsLayout.setVisibility(View.GONE);
             lyricsLine1.setText(null);
             lyricsLine2.setText(null);
@@ -196,9 +197,9 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     public void setLyrics(Lyrics l) {
         lyrics = l;
 
-        if (!isLyricsLayoutBound()) return;
+        if (isLyricsLayoutBound()) return;
 
-        if (!isLyricsLayoutVisible()) {
+        if (isLyricsLayoutVisible()) {
             hideLyricsLayout();
             return;
         }
@@ -220,9 +221,9 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
 
     @Override
     public void onUpdateProgressViews(int progress, int total) {
-        if (!isLyricsLayoutBound()) return;
+        if (isLyricsLayoutBound()) return;
 
-        if (!isLyricsLayoutVisible()) {
+        if (isLyricsLayoutVisible()) {
             hideLyricsLayout();
             return;
         }
