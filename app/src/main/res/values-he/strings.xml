@@ -102,7 +102,7 @@
     <string name="dark_theme_name">כהה</string>
     <string name="black_theme_name">שחור (AMOLED)</string>
     <string name="always">תמיד</string>
-    <string name="only_on_wifi">רק עם WI-FI</string>
+    <string name="only_on_wifi">רק עם Wi-Fi</string>
     <string name="never">אף פעם</string>
     <string name="today">היום</string>
     <string name="this_week">השבוע</string>
@@ -202,7 +202,7 @@
     <string name="up_next">הבא בתור</string>
     <string name="pref_title_now_playing_screen_appearance">מראה</string>
     <string name="intro_label">מבוא</string>
-    <string name="welcome_to_phonograph">"ברוכים הבאים ל-Phonograph, נגן מוזיקה קל ויפה ל-Android. "</string>
+    <string name="welcome_to_phonograph">"ברוכים הבאים ל-Phonograph, נגן מוזיקה קל ויפה ל-Android."</string>
     <string name="open_playing_queue_instruction">החלק את הכרטיס למעלה במסך \'מנגן כעת\' כדי לחשוף את תור ההשמעה המלא.</string>
     <string name="rearrange_playing_queue_instruction">מיין מחדש את התור על ידי גרירת השיר מהמספר שלו.</string>
     <string name="library">ספריה</string>

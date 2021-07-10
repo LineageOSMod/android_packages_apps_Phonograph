@@ -170,7 +170,7 @@
     <string name="pref_summary_remember_last_tab">Go to the last opened tab on launch</string>
     <string name="pref_summary_remember_shuffle">Shuffle mode will stay on when selecting a new list of songs</string>
     <string name="could_not_download_album_cover">"Couldn\u2019t download a matching album cover."</string>
-    <string name="search_hint">Search your library…</string>
+    <string name="search_hint">Search your library...</string>
     <string name="favorites">Favourites</string>
     <string name="last_added">Last added</string>
     <string name="history">Recently played</string>
@@ -184,7 +184,7 @@
     <string name="cancel_current_timer">Cancel current timer</string>
     <string name="sleep_timer_canceled">Sleep timer canceled.</string>
     <string name="sleep_timer_set">Sleep timer set for %d minutes from now.</string>
-    <string name="action_new_playlist">New playlist…</string>
+    <string name="action_new_playlist">New playlist...</string>
     <string name="new_playlist_title">New playlist</string>
     <string name="colored_footers">Coloured footers</string>
     <string name="special_thanks_to">Special thanks to</string>
